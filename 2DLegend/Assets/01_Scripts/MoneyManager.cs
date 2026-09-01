@@ -1,26 +1,46 @@
-﻿using TMPro;
+﻿using _01_Scripts.UI;
 using UnityEngine;
 
 namespace _01_Scripts
 {
     public class MoneyManager : MonoBehaviour
     {
-        [SerializeField] private int money;
-        public int Money 
-        { 
-            get => money;
-            set 
-            { 
-                money = value; 
-                moneyDisplayTmp.text = $"{frontText} {money.ToString()}"; 
-            } 
-        }
-        [SerializeField] private TextMeshProUGUI moneyDisplayTmp;
+        [SerializeField] private string startMoneyValue;
+        [SerializeField] private MoneyDisplayText moneyDisplayText;
         [SerializeField] private string frontText;
 
-        public void AddMoney(int v)
+        private BigNumber _money;
+
+        public BigNumber Money
         {
-            Money += v;
+            get => _money;
+            set
+            {
+                _money = value;
+                UpdateMoneyDisplay();
+            }
+        }
+
+        private void Awake()
+        {
+            Money = BigNumber.FromDouble(double.Parse(startMoneyValue));
+        }
+
+        public void AddMoney(BigNumber value)
+        {
+            Money += value;
+        }
+
+        public void AddMoney(double value)
+        {
+            Money += value;
+        }
+
+        private void UpdateMoneyDisplay()
+        {
+            moneyDisplayText.ChangeMoneyDisplayText(
+                $"{frontText} {_money}"
+            );
         }
     }
 }
