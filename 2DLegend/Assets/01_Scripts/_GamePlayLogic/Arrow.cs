@@ -9,6 +9,13 @@ namespace _01_Scripts.Element
         public GameObject GameObject => gameObject;
         private bool _isFire;
         private float _speed;
+        private float _attack;
+
+        public void ApplyStat(float speed, BigNumber dmg)
+        {
+            _speed = speed;
+            
+        }
         
         public void ResetItem()
         {
@@ -17,7 +24,6 @@ namespace _01_Scripts.Element
 
         public void Fire(float speed)
         {
-            _speed = speed;
             _isFire = true;
         }
         
